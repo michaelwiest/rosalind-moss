@@ -1,5 +1,6 @@
 import os
 import sys
+import shutil
 from config import *
 from scraper import RosalindExporter
 
@@ -11,6 +12,14 @@ def handle_folders(temp_dir, output_dir):
     for extension in ['ruby', 'python', 'javascript', 'c', 'c++']:
         if not os.path.isdir(os.path.join(output_dir, extension)):
             os.makedirs(os.path.join(output_dir, extension))
+        joined_dir = os.path.join(output_dir, extension)
+        for f in os.listdir(joined_dir):
+            fp = os.path.join(joined_dir, f)
+            try:
+                if os.path.isfile(fp):
+                    os.unlink(fp)
+            except Exception as e:
+                print(e)
 
 def export_code(url, assignment_number, temp_dir):
     re = RosalindExporter(url, rosalind_username, rosalind_password)
