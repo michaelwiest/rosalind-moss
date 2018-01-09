@@ -1,3 +1,4 @@
 config.py
 moss
 *.pyc
+output/*
