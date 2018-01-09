@@ -8,7 +8,7 @@ This project requires Python 2, Node, and Perl.
 
 ### Prerequisites
 
-You need to have a Moss account. The information provided from them should be put into a file called `moss` in this directory.
+You need to have a Moss account. The information provided from them should be put into a file called `moss` in this directory. Alternatively you can use the file `moss_template`, change it to `moss` and put your Moss user_id into the place where it says `$userid=<YOUR USER_ID HERE>;`.
 
 You also need credentials for Rosalind. Your Rosalind credentials should go into a file called `config.py` in this directory. See `config_template.py` for an example of how it should look.
 
