@@ -18,7 +18,6 @@ class RosalindExporter():
         self.cj = cookielib.CookieJar()
         self.br = mechanize.Browser()
         self.br.set_cookiejar(self.cj)
-
         self.username = username
         self.password = password
         self.url = url
@@ -41,6 +40,9 @@ class RosalindExporter():
         return split_one.split('">\n')[0].strip()
 
 
+    '''
+    Helper function to actually get the URLs for the code from a given grade table.
+    '''
     def __get_submission_urls_from_grade_table(self, table, assignment_number, submission_position=0):
         submission_pages = []
         rows = table.find('tbody').find_all('tr')
@@ -65,10 +67,12 @@ class RosalindExporter():
 
     def __set_names(self, name_table):
         names = name_table.find_all(attrs={'class':'student-name'})
-        # self.names = [str(name).split('<td class="student-name">')[-1].split('</td>')[0] for name in names][1:]
         self.names = [name.get_text() for name in names][1:]
 
-    def get_urls_for_assignment_n(self, assignment_number):
+    '''
+    Find all URLs corresponding to a given assignment number for all students.
+    '''
+    def set_urls_for_assignment_n(self, assignment_number):
         self.br.open(self.url)
         soup = BeautifulSoup(self.br.response().read())
         tables = soup.find_all('table')
@@ -79,11 +83,14 @@ class RosalindExporter():
 
         result_table = tables[2]
         submissions = self.__get_submission_urls_from_grade_table(result_table, assignment_number)
-        return submissions
+        self.urls = submissions
 
-    def get_code_from_submission_urls(self, urls):
+    '''
+    Given the URLs of code locations, get that code from the URLs
+    '''
+    def get_code_from_submission_urls(self):
         self.code = []
-        for url in urls:
+        for url in self.urls:
             if url is not None:
                 self.br.open(self.url_base + url)
                 s = BeautifulSoup(self.br.response().read())

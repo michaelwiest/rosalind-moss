@@ -1,3 +1,9 @@
+/*
+The main purpose of this code is to classify the exported code into their
+respective languages. Unfortunately Rosalind only returns the text of the file
+so this is the best solution. This is by no means a great classifier, but it
+gets the job done.
+*/
 var lang = require('language-classifier');
 var fs = require('fs');
 var path = require('path')
@@ -33,10 +39,8 @@ fs.readdir(input_dir, (err, files) => {
     fs.readFile(old_filename, 'utf8', function(err, data) {
 
         if (err) throw err;
-
         var new_filename = path.join(output_dir, path.join(name_lookup[lang(data)], file.slice(0, file.length - 4) + '.' + extension_lookup[name_lookup[lang(data)]]));
         fs.rename(old_filename, new_filename)
-        fs.unlink(old_filename)
     });
   });
 })

@@ -9,7 +9,7 @@ def handle_folders(temp_dir, output_dir):
     for d in [temp_dir, output_dir]:
         if not os.path.isdir(d):
             os.makedirs(d)
-    for extension in ['ruby', 'python', 'javascript', 'c', 'c++']:
+    for extension in ['ruby', 'python', 'javascript', 'c', 'cc']:
         if not os.path.isdir(os.path.join(output_dir, extension)):
             os.makedirs(os.path.join(output_dir, extension))
         joined_dir = os.path.join(output_dir, extension)
@@ -23,8 +23,8 @@ def handle_folders(temp_dir, output_dir):
 
 def export_code(url, assignment_number, temp_dir):
     re = RosalindExporter(url, rosalind_username, rosalind_password)
-    urls = re.get_urls_for_assignment_n(assignment_number)
-    re.get_code_from_submission_urls(urls)
+    re.set_urls_for_assignment_n(assignment_number)
+    re.get_code_from_submission_urls()
     re.write_code_to_dir(temp_dir)
 
 def classify_code(temp_dir, output_dir):
@@ -53,7 +53,7 @@ def main():
     classify_code(temp_dir, output_dir)
     run_moss(output_dir)
 
-    os.rmdir(temp_dir)
+    # os.rmdir(temp_dir)
 
 if __name__ == '__main__':
     main()
