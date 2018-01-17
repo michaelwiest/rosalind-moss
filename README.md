@@ -18,12 +18,22 @@ From the command line the whole code can simply be run with:
 ```
 python main.py '<ROSALIND_URL>' <ASSIGNMENT_NUMBER>
 ```
-Where `<ROSALIND_URL>` is the url corresponding to the grade sheet for the particular section, and `<ASSIGNMENT_NUMBER>` corresponds to which assignment to check for plagiarism.
+Where `<ROSALIND_URL>` is the url corresponding to the grade sheet for the particular section, and `<ASSIGNMENT_NUMBER>` corresponds to which assignment to check for plagiarism. `<ASSIGNMENT_NUMBER>` can also be a list of values like
+`0,1,2,3,4` for all desired assignments.
 
 eg,
 ```
 python main.py 'http://rosalind.info/classes/257/students/' 0
 ```
+or
+```
+python main.py 'http://rosalind.info/classes/257/students/' 0,1,2,3,4
+```
+or
+```
+python main.py 'http://rosalind.info/classes/257/students/' 0,1,2,3,4 > output.txt
+```
 
 ## output
-This will generate a Moss report for each language detected in the output from Rosalind. Each report is separated by a few lines.
+This will generate a Moss report for each language detected in the output from Rosalind. Each report is separated by a few lines. To save this information
+please pipe it to a file as seen above.
